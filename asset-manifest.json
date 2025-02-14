@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/flapp/static/css/main.ca6187b4.css",
+    "main.js": "/flapp/static/js/main.be8aff64.js",
+    "static/js/563.3ae07696.chunk.js": "/flapp/static/js/563.3ae07696.chunk.js",
+    "static/media/melody.mp3": "/flapp/static/media/melody.a32b25d9e4586b24b243.mp3",
+    "index.html": "/flapp/index.html",
+    "main.ca6187b4.css.map": "/flapp/static/css/main.ca6187b4.css.map",
+    "main.be8aff64.js.map": "/flapp/static/js/main.be8aff64.js.map",
+    "563.3ae07696.chunk.js.map": "/flapp/static/js/563.3ae07696.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca6187b4.css",
+    "static/js/main.be8aff64.js"
+  ]
+}
