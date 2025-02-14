@@ -1,0 +1,14 @@
+.falling-flower {
+  position: fixed;
+  top: -10%;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
