@@ -4,9 +4,6 @@ import emailjs from 'emailjs-com';
 import FallingFlowers from './FallingFlowers';
 import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 
-// Import Karla font
-import '@fontsource/karla';
-
 function App() {
   const sendEmail = () => {
     const templateParams = {
@@ -45,10 +42,14 @@ function App() {
     let randomX, randomY;
     const button1 = document.querySelector('.button-container button:first-child');
     const button1Rect = button1.getBoundingClientRect();
+    const button2Width = button2Size.width;
+    const button2Height = button2Size.height;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
     do {
-      randomX = Math.floor(Math.random() * window.innerWidth);
-      randomY = Math.floor(Math.random() * window.innerHeight);
+      randomX = Math.floor(Math.random() * (viewportWidth - button2Width));
+      randomY = Math.floor(Math.random() * (viewportHeight - button2Height));
     } while (
       randomX >= button1Rect.left && randomX <= button1Rect.right &&
       randomY >= button1Rect.top && randomY <= button1Rect.bottom
@@ -94,7 +95,7 @@ function App() {
   }, [isMuted, audio]);
 
   return (
-    <div className="app" style={{ fontFamily: 'Karla, sans-serif' }}>
+    <div className="app" style={{ fontFamily: 'Cinzel, serif' }}>
       <div style={{ position: 'fixed', zIndex: -1, width: '100%', height: '100%' }}>
         <FallingFlowers />
       </div>
@@ -110,7 +111,7 @@ function App() {
           onClick={toggleMute} 
           style={{ backgroundColor: 'transparent', position: 'fixed', top: '10px', right: '10px', border: 'none', cursor: 'pointer' }}
         >
-          {isMuted ? <FaVolumeMute color="pink" size="24" /> : <FaVolumeUp color="pink" size="24" />}
+          {isMuted ? <FaVolumeMute color="#ff69b4" size="24" /> : <FaVolumeUp color="#ff69b4" size="24" />}
         </button>
       </div>
     </div>
