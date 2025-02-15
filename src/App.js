@@ -13,9 +13,9 @@ function App() {
 
     emailjs.send('service_83rytxw', 'template_eemfq99', templateParams, 'sHThxjavMImBaZ2Im')
       .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
+        console.log('SUCCESS', response.status, response.text);
       }, (error) => {
-        console.log('FAILED...', error);
+        console.log('FAILED', error);
       });
 
     document.querySelector('.header').classList.add('hidden');
@@ -69,11 +69,11 @@ function App() {
   useEffect(() => {
     const newAudio = new Audio(require('./melody.mp3'));
     newAudio.loop = true;
-    newAudio.muted = true; // Start muted
+    newAudio.muted = true; 
     setAudio(newAudio);
 
     newAudio.play().then(() => {
-      newAudio.muted = isMuted; // Apply the current mute state
+      newAudio.muted = isMuted; 
     }).catch(error => console.error('Audio play failed:', error));
 
     return () => {
