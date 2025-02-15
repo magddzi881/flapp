@@ -4,6 +4,9 @@ import emailjs from 'emailjs-com';
 import FallingFlowers from './FallingFlowers';
 import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 
+// Import Karla font
+import '@fontsource/karla';
+
 function App() {
   const sendEmail = () => {
     const templateParams = {
@@ -69,43 +72,47 @@ function App() {
 
   const toggleMute = () => {
     if (audio) {
-      audio.muted = !isMuted;
-      setIsMuted(!isMuted);
+      audio.muted = !audio.muted;
+      setIsMuted(audio.muted);
+    } else {
+      const newAudio = new Audio(require('./melody.mp3'));
+      newAudio.loop = true;
+      newAudio.muted = false;
+      setAudio(newAudio);
+      setIsMuted(false);
+
+      newAudio.play().then(() => {
+        setAudio(newAudio);
+      }).catch(error => console.error('Audio play failed:', error));
     }
   };
 
   useEffect(() => {
-    const newAudio = new Audio(require('./melody.mp3'));
-    newAudio.loop = true;
-    newAudio.muted = true; 
-    setAudio(newAudio);
-
-    newAudio.play().then(() => {
-      newAudio.muted = isMuted; 
-    }).catch(error => console.error('Audio play failed:', error));
-
-    return () => {
-      newAudio.pause();
-      newAudio.currentTime = 0;
-    };
-  }, [isMuted]);
+    if (audio) {
+      audio.muted = isMuted;
+    }
+  }, [isMuted, audio]);
 
   return (
-    <div className="app">
-      <FallingFlowers />
-      <h1 className="header">Will you go on a date?</h1>
-      <h2 className="header2"> (with me) </h2>
-      <div className="button-container">
-        <button className="button" onClick={sendEmail}>Yes</button>
-        <button className="button" style={button2Style} onClick={teleportButton}>No</button>
+    <div className="app" style={{ fontFamily: 'Karla, sans-serif' }}>
+      <div style={{ position: 'fixed', zIndex: -1, width: '100%', height: '100%' }}>
+        <FallingFlowers />
       </div>
-      <button 
-        className="mute-button" 
-        onClick={toggleMute} 
-        style={{ backgroundColor: 'transparent', position: 'fixed', top: '10px', right: '10px', border: 'none', cursor: 'pointer' }}
-      >
-        {isMuted ? <FaVolumeMute color="pink" size="24" /> : <FaVolumeUp color="pink" size="24" />}
-      </button>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <h1 className="header">Will you go on a date?</h1>
+        <h2 className="header2"> (with me) </h2>
+        <div className="button-container">
+          <button className="button" onClick={sendEmail}>Yes</button>
+          <button className="button" style={button2Style} onClick={teleportButton}>No</button>
+        </div>
+        <button 
+          className="mute-button" 
+          onClick={toggleMute} 
+          style={{ backgroundColor: 'transparent', position: 'fixed', top: '10px', right: '10px', border: 'none', cursor: 'pointer' }}
+        >
+          {isMuted ? <FaVolumeMute color="pink" size="24" /> : <FaVolumeUp color="pink" size="24" />}
+        </button>
+      </div>
     </div>
   );
 }
