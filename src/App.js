@@ -23,6 +23,7 @@ function App() {
     const header2 = document.querySelector('.header2');
     header2.textContent = ';))';
     header2.classList.add('centered');
+    header2.style.display = 'block'; // Ensure the element is visible
   };
 
   const [button2Style, setButton2Style] = useState({});
@@ -99,7 +100,7 @@ function App() {
       <div style={{ position: 'fixed', zIndex: -1, width: '100%', height: '100%' }}>
         <FallingFlowers />
       </div>
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 1, height: '100%' }}> {/* Ensure the parent container is relative and takes full height */}
         <h1 className="header">Will you go on a date?</h1>
         <h2 className="header2"> (with me) </h2>
         <div className="button-container">
