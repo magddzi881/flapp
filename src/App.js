@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import emailjs from 'emailjs-com';
 import FallingFlowers from './FallingFlowers';
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 
 function App() {
   const sendEmail = () => {
@@ -26,6 +27,8 @@ function App() {
 
   const [button2Style, setButton2Style] = useState({});
   const [button2Size, setButton2Size] = useState({ width: 100, height: 50, fontSize: 16 }); 
+  const [isMuted, setIsMuted] = useState(true);
+  const [audio, setAudio] = useState(null);
 
   const teleportButton = () => {
     let randomX, randomY;
@@ -56,24 +59,28 @@ function App() {
     });
   };
 
+  const toggleMute = () => {
+    if (audio) {
+      audio.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
   useEffect(() => {
-    const audio = new Audio(require('./melody.mp3'));
-    audio.loop = true;
+    const newAudio = new Audio(require('./melody.mp3'));
+    newAudio.loop = true;
+    newAudio.muted = true; // Start muted
+    setAudio(newAudio);
 
-    const playAudio = () => {
-      audio.play().catch(error => console.error('Audio play failed:', error));
-      document.removeEventListener('click', playAudio);
-      document.removeEventListener('keydown', playAudio);
-    };
-
-    document.addEventListener('click', playAudio);
-    document.addEventListener('keydown', playAudio);
+    newAudio.play().then(() => {
+      newAudio.muted = isMuted; // Apply the current mute state
+    }).catch(error => console.error('Audio play failed:', error));
 
     return () => {
-      document.removeEventListener('click', playAudio);
-      document.removeEventListener('keydown', playAudio);
+      newAudio.pause();
+      newAudio.currentTime = 0;
     };
-  }, []);
+  }, [isMuted]);
 
   return (
     <div className="app">
@@ -84,6 +91,13 @@ function App() {
         <button className="button" onClick={sendEmail}>Yes</button>
         <button className="button" style={button2Style} onClick={teleportButton}>No</button>
       </div>
+      <button 
+        className="mute-button" 
+        onClick={toggleMute} 
+        style={{ backgroundColor: 'transparent', position: 'fixed', top: '10px', right: '10px', border: 'none', cursor: 'pointer' }}
+      >
+        {isMuted ? <FaVolumeMute color="pink" size="24" /> : <FaVolumeUp color="pink" size="24" />}
+      </button>
     </div>
   );
 }
