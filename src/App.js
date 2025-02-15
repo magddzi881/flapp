@@ -29,8 +29,16 @@ function App() {
   const [button2Size, setButton2Size] = useState({ width: 100, height: 50, fontSize: 16 }); 
   const [isMuted, setIsMuted] = useState(true);
   const [audio, setAudio] = useState(null);
+  const [noClickCount, setNoClickCount] = useState(0);
 
   const teleportButton = () => {
+    setNoClickCount(noClickCount + 1);
+
+    if (noClickCount >= 4) {
+      document.querySelector('.button-container button:last-child').style.visibility = 'hidden';
+      return;
+    }
+
     let randomX, randomY;
     const button1 = document.querySelector('.button-container button:first-child');
     const button1Rect = button1.getBoundingClientRect();
