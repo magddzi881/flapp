@@ -112,7 +112,7 @@ function App() {
           onClick={toggleMute} 
           style={{ backgroundColor: 'transparent', position: 'fixed', top: '10px', right: '10px', border: 'none', cursor: 'pointer' }}
         >
-          {isMuted ? <FaVolumeMute color="#ff69b4" size="24" /> : <FaVolumeUp color="#ff69b4" size="24" />}
+          {isMuted ? <FaVolumeMute color="#dda0dd" size="24" /> : <FaVolumeUp color="#dda0dd" size="24" />}
         </button>
       </div>
     </div>
